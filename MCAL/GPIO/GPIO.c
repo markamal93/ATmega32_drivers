@@ -89,22 +89,77 @@ void GPIO_SetPinDirection(u8 Port ,u8 PinNumber, u8 Direction){
 	}
 }
 
-
-
-
 void GPIO_SetPinValue(u8 Port ,u8 PinNumber, u8 Value){
-
+	switch(Port){
+	case GPIO_PORTA:
+		if (Value == STD_HIGH){
+			SET_BIT(PORTA , PinNumber);
+		}else {
+			CLEAR_BIT(PORTA,PinNumber);
+		}break;
+	case GPIO_PORTB:
+		if (Value == STD_HIGH){
+			SET_BIT(PORTB , PinNumber);
+		}else {
+			CLEAR_BIT(PORTB,PinNumber);
+		}break;
+	case GPIO_PORTC:
+		if (Value == STD_HIGH){
+			SET_BIT(PORTC , PinNumber);
+		}else {
+			CLEAR_BIT(PORTC,PinNumber);
+		}break;
+	case GPIO_PORTD:
+		if (Value == STD_HIGH){
+			SET_BIT(PORTD , PinNumber);
+		}else {
+			CLEAR_BIT(PORTD,PinNumber);
+		}break;
+	}
 }
+
 u8 GPIO_GetPinValue(u8 Port , u8 PinNumber){
-	return 0;
 
+	u8 Value = 0;
+	switch(Port){
+	case GPIO_PORTA:
+		Value = GET_BIT(PINA ,PinNumber);
+		break;
+	case GPIO_PORTB:
+		Value = GET_BIT(PINB ,PinNumber);
+		break;
+	case GPIO_PORTC :
+		Value = GET_BIT(PINC ,PinNumber);
+		break;
+	case GPIO_PORTD :
+		Value = GET_BIT(PIND ,PinNumber);
+		break;
+	}
+	return Value;
 }
+
+
 
 void GPIO_TogglePin(u8 port , u8 PinNumber){
-
+	switch(port){
+	case GPIO_PORTA:
+		TOGGLE_BIT(PORTA , PinNumber);
+		break;
+	case GPIO_PORTB:
+		TOGGLE_BIT(PORTB , PinNumber);
+		break;
+	case GPIO_PORTC :
+		TOGGLE_BIT(PORTC , PinNumber);
+		break;
+	case GPIO_PORTD :
+		TOGGLE_BIT(PORTD , PinNumber);
+		break;
+	}
 }
 
 void GPIO_SetPullUpOnPin(u8 port,u8 PinNumber){
+	GPIO_SetPinDirection(port , PinNumber , GPIO_INPUT);
+	GPIO_SetPinValue(port , PinNumber , STD_HIGH);
 
 }
 
