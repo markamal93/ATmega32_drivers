@@ -68,16 +68,35 @@ void GPIO_SetPinDirection(u8 Port ,u8 PinNumber, u8 Direction){
 		}else {
 			CLEAR_BIT(DDRA,PinNumber);
 		}break;
-
+	case GPIO_PORTB:
+		if (Direction == GPIO_OUTPUT){
+			SET_BIT(DDRB , PinNumber);
+		}else {
+			CLEAR_BIT(DDRB,PinNumber);
+		}break;
+	case GPIO_PORTC:
+		if (Direction == GPIO_OUTPUT){
+			SET_BIT(DDRC , PinNumber);
+		}else {
+			CLEAR_BIT(DDRC,PinNumber);
+		}break;
+	case GPIO_PORTD:
+		if (Direction == GPIO_OUTPUT){
+			SET_BIT(DDRD , PinNumber);
+		}else {
+			CLEAR_BIT(DDRD,PinNumber);
+		}break;
 	}
-
 }
+
+
 
 
 void GPIO_SetPinValue(u8 Port ,u8 PinNumber, u8 Value){
 
 }
 u8 GPIO_GetPinValue(u8 Port , u8 PinNumber){
+	return 0;
 
 }
 
