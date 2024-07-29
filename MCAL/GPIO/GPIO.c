@@ -61,6 +61,15 @@ u8 GPIO_GetPortValue(u8 Port){
 }
 
 void GPIO_SetPinDirection(u8 Port ,u8 PinNumber, u8 Direction){
+	switch(Port){
+	case GPIO_PORTA:
+		if (Direction == GPIO_OUTPUT){
+			SET_BIT(DDRA , PinNumber);
+		}else {
+			CLEAR_BIT(DDRA,PinNumber);
+		}break;
+
+	}
 
 }
 
