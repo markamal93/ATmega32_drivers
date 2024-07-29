@@ -24,4 +24,5 @@
 
 
 
+
 #endif /* HAL_LCD16X2_LCD16X2_CONFIG_H_ */
