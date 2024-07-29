@@ -10,9 +10,7 @@
 
 #include "LCD16x2_config.h"
 #include "GPIO/GPIO.h"
-
-
-
+#include <util/delay.h>
 
 
 #define LCD_D0 GPIO_PIN0
@@ -88,7 +86,7 @@
 void LCD_Init(void);
 void LCD_SendCommand(u8);
 void LCD_SendChar(u8);
-void LCD_SendString(*s8);
+void LCD_SendString(s8*);
 void LCD_GotoXy(u8,u8);
 
 

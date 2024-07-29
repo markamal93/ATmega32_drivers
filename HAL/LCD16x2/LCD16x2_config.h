@@ -11,14 +11,14 @@
 
 
 #define LCD_4BIT_MODE
-#define LCD_8BIT_MODE
+//#define LCD_8BIT_MODE
 
 #define LCD_DATA_PORT GPIO_PORTD
 #define LCD_CTRL_PORT GPIO_PORTD
 
-#define LCD_E DIO_PIN2
-#define LCD_RW DIO_PIN1
-#define LCD_RS DIO_PIN0
+#define LCD_E GPIO_PIN2
+#define LCD_RW GPIO_PIN1
+#define LCD_RS GPIO_PIN0
 
 
 
