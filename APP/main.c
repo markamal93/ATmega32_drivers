@@ -16,16 +16,13 @@
 int main(){
 
 	//u8 str[] = "mark_kamal";
-
 	LCD_Init();
 	//LCD_SendString("mark kamal\0");
 	KEYPAD_Init();
 
 	while(1){
 		u8 pressedkey = KEYPAD_GetKey();
-		if (pressedkey != 0xFF) {
 		LCD_SendChar(pressedkey);
-		}
 	}
 
 
