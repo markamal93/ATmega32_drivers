@@ -1,0 +1,33 @@
+/*
+ * KEYPAD4x4_config.h
+ *
+ *  Created on: Jul 29, 2024
+ *      Author: markk
+ */
+
+#ifndef HAL_KEYPAD4X4_KEYPAD4X4_CONFIG_H_
+#define HAL_KEYPAD4X4_KEYPAD4X4_CONFIG_H_
+
+#define KEYPAD_HOLD_BUTTON
+
+#define ROW0_PORT GPIO_PORTA
+#define ROW0_PIN 0
+#define ROW1_PORT GPIO_PORTA
+#define ROW1_PIN 1
+#define ROW2_PORT GPIO_PORTA
+#define ROW2_PIN 2
+#define ROW3_PORT GPIO_PORTA
+#define ROW3_PIN 3
+
+#define COL0_PORT GPIO_PORTA
+#define COL0_PIN 4
+#define COL1_PORT GPIO_PORTA
+#define COL1_PIN 5
+#define COL2_PORT GPIO_PORTA
+#define COL2_PIN 6
+#define COL3_PORT GPIO_PORTA
+#define COL3_PIN 7
+
+
+
+#endif /* HAL_KEYPAD4X4_KEYPAD4X4_CONFIG_H_ */

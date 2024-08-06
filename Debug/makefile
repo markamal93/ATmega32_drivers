@@ -9,6 +9,8 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include MCAL/GPIO/subdir.mk
+-include HAL/LCD16x2/subdir.mk
+-include HAL/KEYPAD4x4/subdir.mk
 -include APP/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -45,6 +47,9 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 LSS += \
 ATmega32_DRIVERS.lss \
 
+FLASH_IMAGE += \
+ATmega32_DRIVERS.hex \
+
 SIZEDUMMY += \
 sizedummy \
 
@@ -69,6 +74,12 @@ ATmega32_DRIVERS.lss: ATmega32_DRIVERS.elf makefile objects.mk $(OPTIONAL_TOOL_D
 	@echo 'Finished building: $@'
 	@echo ' '
 
+ATmega32_DRIVERS.hex: ATmega32_DRIVERS.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+	@echo 'Create Flash image (ihex format)'
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex ATmega32_DRIVERS.elf  "ATmega32_DRIVERS.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 sizedummy: ATmega32_DRIVERS.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
 	@echo 'Invoking: Print Size'
 	-avr-size --format=berkeley -t ATmega32_DRIVERS.elf
@@ -77,10 +88,10 @@ sizedummy: ATmega32_DRIVERS.elf makefile objects.mk $(OPTIONAL_TOOL_DEPS)
 
 # Other Targets
 clean:
-	-$(RM) $(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) ATmega32_DRIVERS.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) ATmega32_DRIVERS.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(SIZEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents main-build
 

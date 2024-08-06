@@ -8,6 +8,7 @@ ASM_SRCS :=
 C_SRCS := 
 S_UPPER_SRCS := 
 O_SRCS := 
+FLASH_IMAGE := 
 ELFS := 
 OBJS := 
 ASM_DEPS := 
@@ -20,5 +21,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 APP \
+HAL/KEYPAD4x4 \
+HAL/LCD16x2 \
 MCAL/GPIO \
 
