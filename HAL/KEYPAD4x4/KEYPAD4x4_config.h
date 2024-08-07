@@ -24,7 +24,7 @@
 
 #define 	KPD_NOT_PRESSED_VAL 		255
 
-#define     KPD_ARR_VAL          {{'1', '2', '3', 'A'},{'4', '5', '6', 'B'},{'7', '8', '9', 'C'},{'*', '0', '#', 'D'}}
+#define     KPD_ARR_VAL          {{'7', '8', '9', '/'},{'4', '5', '6', '*'},{'1', '2', '3', '-'},{'#', '0', '=', '+'}}
 #define     KPD_ROWS_NUM        	4
 #define     KPD_COULMNS_NUM     	4
 

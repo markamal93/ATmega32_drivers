@@ -60,6 +60,5 @@ u8 KEYPAD_GetKey(void){
 	        GPIO_SetPinValue(KPD_COLUMNS_PORT, Local_u8KPDColumnsArray[Local_u8ColumnsIterator], STD_HIGH);
 	    }
 	    return Local_u8PressedKey;
-
 }
 

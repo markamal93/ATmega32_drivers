@@ -11,7 +11,7 @@
 #include "STD_TYPES.h"
 #include "KEYPAD4x4/KEYPAD4x4.h"
 
-#define F_CPU 1000000UL  // 1 MHz clock speed
+//#define F_CPU 1000000UL  // 1 MHz clock speed
 
 int main(){
 
@@ -21,8 +21,11 @@ int main(){
 	KEYPAD_Init();
 
 	while(1){
+		//LCD_SendChar('a');
 		u8 pressedkey = KEYPAD_GetKey();
+		if (pressedkey != 0xFF){
 		LCD_SendChar(pressedkey);
+		}
 	}
 
 
