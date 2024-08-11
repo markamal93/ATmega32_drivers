@@ -165,4 +165,8 @@ void LCD_GotoXy(u8 x_cor,u8 y_cor){
 	}
 	LCD_SendCommand(address | 0x80);
 }
-
+void LCD_SendNumber(u16 number) {
+    char buffer[17];     // Buffer to hold the converted number string
+    itoa(number, buffer, 10);  // Convert the integer to a string (base 10)
+    LCD_SendString(buffer);    // Send the string to the LCD
+}

@@ -88,6 +88,7 @@ void LCD_SendCommand(u8);
 void LCD_SendChar(u8);
 void LCD_SendString(u8*);
 void LCD_GotoXy(u8,u8);
+void LCD_SendNumber(u16 number);
 
 
 

@@ -8,18 +8,20 @@
 #include "ADC/ADC.h"
 #include "GPIO/GPIO.h"
 #include <util/delay.h>
+#include "LCD16x2/LCD16x2.h"
 
 int main(){
-	ADC_Init(ADC_REF_AVCC ,ADC_LEFTADJUST,ADC_MUX_0,ADC_CLK_64);
-	GPIO_SetPortDirection(GPIO_PORTC , GPIO_OUTPUT);
+	ADC_Init();
+	LCD_Init();
 
-	while(1){
-		u16 adc_value = ADC_GetValue();
-		GPIO_SetPortValue(GPIO_PORTC , (adc_value >> 2));
-		_delay_ms(100);
+while(1){
+	u8 value  = ADC_StartConversionSynchronous(CHANNEL0);
+	LCD_SendCommand(LCD_CLEAR_SCREEN);
+	LCD_GotoXy(0,0);
+	LCD_SendString("ADC value :");
+	LCD_SendNumber(value);
+	_delay_ms(200);
 
-	}
-
-
-	return 0;
+}
+return 0;
 }

@@ -1,171 +1,101 @@
-/*
- * ADC.c
- *
- *  Created on: Aug 7, 2024
- *      Author: markk
- */
 
 #include "ADC.h"
+void ADC_Init(void){
+	   /* ADC Enable */
+	    #if ADC_ENABLE == ENABLE
+	        SET_BIT(ADCSRA, ADCSRA_ADEN);
+	    #elif ADC_ENABLE == DISABLE
+	        CLR_BIT(ADCSRA, ADCSRA_ADEN);
+	    #else
+	        #error("Error, ADC_ENABLE Configuration error")
+	    #endif
 
-//ADC_vidInit just used to initialize basic operation
-//of ADC. Other functions are used to controll certain
-//features like interrupt and auto-triggering.
 
-void ADC_Init(u8 RefSelect, u8 LeftAdjust, u8 ChannelSelect, u8 Clk){
-	//Voltage reference selection
-		if (RefSelect == ADC_REF_AREF) {
-			CLEAR_BIT(ADMUX,ADMUX_REFS1);
-			CLEAR_BIT(ADMUX,ADMUX_REFS0);
-		}
-		else if (RefSelect == ADC_REF_AVCC) {
-			CLEAR_BIT(ADMUX,ADMUX_REFS1);
-			SET_BIT(ADMUX,ADMUX_REFS0);
-		}
-		else if (RefSelect == ADC_REF_RESERVED) {
-			SET_BIT(ADMUX,ADMUX_REFS1);
-			CLEAR_BIT(ADMUX,ADMUX_REFS0);
-		}
-		else if (RefSelect == ADC_REF_INTERNAL) {
-			SET_BIT(ADMUX,ADMUX_REFS1);
-			SET_BIT(ADMUX,ADMUX_REFS0);
-		}
+	    /* ADC Interrupt Enable */
+	        /* Pre Build */
+	    #if ADC_INTERRUPT_STATUS == ENABLE
+	        SET_BIT(ADCSRA, ADCSRA_ADIE);
+	    #elif ADC_INTERRUPT_STATUS == DISABLE
+	        CLR_BIT(ADCSRA, ADCSRA_ADIE);
+	    #else
+	        #error("Error, ADC_INTERRUPT_STATUS Configuration error")
+	    #endif
 
-		//Left adjust configuration
-		if (LeftAdjust == ADC_LEFTADJUST) {
-			SET_BIT(ADMUX,ADMUX_ADLAR);
-		}
-		else if (LeftAdjust == ADC_RIGHTADJUST) {
-			CLEAR_BIT(ADMUX,ADMUX_ADLAR);
-		}
 
-		//Channel selection
-		if (ChannelSelect == ADC_MUX_0) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN0,GPIO_INPUT);
-			CLEAR_BIT(ADMUX,ADMUX_MUX0);
-			CLEAR_BIT(ADMUX,ADMUX_MUX1);
-			CLEAR_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_1) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN1,GPIO_INPUT);
-			SET_BIT(ADMUX,ADMUX_MUX0);
-			CLEAR_BIT(ADMUX,ADMUX_MUX1);
-			CLEAR_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_2) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN2,GPIO_INPUT);
-			CLEAR_BIT(ADMUX,ADMUX_MUX0);
-			SET_BIT(ADMUX,ADMUX_MUX1);
-			CLEAR_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_3) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN3,GPIO_INPUT);
-			SET_BIT(ADMUX,ADMUX_MUX0);
-			SET_BIT(ADMUX,ADMUX_MUX1);
-			CLEAR_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_4) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN4,GPIO_INPUT);
-			CLEAR_BIT(ADMUX,ADMUX_MUX0);
-			CLEAR_BIT(ADMUX,ADMUX_MUX1);
-			SET_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_5) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN5,GPIO_INPUT);
-			SET_BIT(ADMUX,ADMUX_MUX0);
-			CLEAR_BIT(ADMUX,ADMUX_MUX1);
-			SET_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_6) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN6,GPIO_INPUT);
-			CLEAR_BIT(ADMUX,ADMUX_MUX0);
-			SET_BIT(ADMUX,ADMUX_MUX1);
-			SET_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
-		else if (ChannelSelect == ADC_MUX_7) {
-			GPIO_SetPinDirection(GPIO_PORTA,GPIO_PIN7,GPIO_INPUT);
-			SET_BIT(ADMUX,ADMUX_MUX0);
-			SET_BIT(ADMUX,ADMUX_MUX1);
-			SET_BIT(ADMUX,ADMUX_MUX2);
-			CLEAR_BIT(ADMUX,ADMUX_MUX3);
-			CLEAR_BIT(ADMUX,ADMUX_MUX4);
-		}
+	    /* Reference voltage choose */
+	    /*
+	    #if ADC_Reference_SECTION == AREF
+	        CLR_BIT(ADMUX, ADMUX_REFS0);
+	        CLR_BIT(ADMUX, ADMUX_REFS1);
+	    #elif ADC_Reference_SECTION == AVCC
+	        SET_BIT(ADMUX, ADMUX_REFS0);
+	        CLR_BIT(ADMUX, ADMUX_REFS1);
+	    #elif ADC_Reference_SECTION == INTERNAL_2v56
+	        SET_BIT(ADMUX, ADMUX_REFS0);
+	        SET_BIT(ADMUX, ADMUX_REFS1);
+	    #else
+	        #error("Error, ADC_Reference_SECTION Configuration error")
+	    #endif
+	    */
 
-		//Clk configuration
-		if (Clk == ADC_CLK_2) {
-			SET_BIT(ADCSRA,ADCSRA_ADPS0);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS1);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_4) {
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS0);
-			SET_BIT(ADCSRA,ADCSRA_ADPS1);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_8) {
-			SET_BIT(ADCSRA,ADCSRA_ADPS0);
-			SET_BIT(ADCSRA,ADCSRA_ADPS1);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_16) {
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS0);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS1);
-			SET_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_32) {
-			SET_BIT(ADCSRA,ADCSRA_ADPS0);
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS1);
-			SET_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_64) {
-			CLEAR_BIT(ADCSRA,ADCSRA_ADPS0);
-			SET_BIT(ADCSRA,ADCSRA_ADPS1);
-			SET_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		else if (Clk == ADC_CLK_128) {
-			SET_BIT(ADCSRA,ADCSRA_ADPS0);
-			SET_BIT(ADCSRA,ADCSRA_ADPS1);
-			SET_BIT(ADCSRA,ADCSRA_ADPS2);
-		}
-		SET_BIT(ADCSRA,ADCSRA_ADEN); //ADC Enable
+	    /* Reference voltage choose by bit masking */
+	    ADMUX &= REF_SEL_BIT_MASK;
+	    ADMUX |= ADC_Reference_SELCTION;
+
+	    /* Adjust Result */
+	    #if ADC_ADJUST_RESULT == RIGHT_ADJUST
+	        CLR_BIT(ADMUX, ADMUX_ADLAR);
+	    #elif ADC_ADJUST_RESULT == LEFT_ADJUST
+	        SET_BIT(ADMUX, ADMUX_ADLAR);
+	    #else
+	        #error("Error, ADC_ADJUST_RESULT Configuration error")
+	    #endif
+
+	    /* Pre-Scaler by bit mask */
+	    ADCSRA &= PRE_SCALER_BIT_MASK;
+	    ADCSRA |= ADC_PRESCALER;
 
 }
-void ADC_StartConversion(void){
-	SET_BIT(ADCSRA,ADCSRA_ADSC); //Start conversion bit
+void ADC_InterruptControl(u8 InterruptStatus){
+
+	/*Post Build*/
+	    switch (InterruptStatus)
+	    {
+	    case ADC_INTERRUPT_DISABLE:
+	        CLEAR_BIT(ADCSRA, ADCSRA_ADIE);
+	        break;
+	    case ADC_INTERRUPT_ENABLE:
+	        SET_BIT(ADCSRA, ADCSRA_ADIE);
+	        break;
+	    default:
+	        /* Do Nothing */
+	        break;
+	    }
 
 }
-void ADC_SetAutoTrigger(void){
-	SET_BIT(ADCSRA,ADCSRA_ADATE); // Auto trigger enable
+u8 ADC_StartConversionSynchronous(u8 ChannelNumber){
+	 /* Set Channel */
+	    ADMUX &= CHANNEL_SELECTION_MASK;
+	    ADMUX |= ChannelNumber;
 
-}
-u8 ADC_GetValue(void){
-	ADC_StartConversion();
-	if(GET_BIT(ADCSRA,ADCSRA_ADIF) == 1) {
-		SET_BIT(ADCSRA,ADCSRA_ADIF);
+	    /* ADC start convertion */
+	    SET_BIT(ADCSRA, ADCSRA_ADSC);
+
+	    /* Polling (Busy wait) till the flag is raised */
+	    while (GET_BIT(ADCSRA, ADCSRA_ADIF) == FALSE);
+
+	    /* Clear flag */
+	    SET_BIT(ADCSRA, ADCSRA_ADIF);
+
+	    /* Return value */
+	    u8 DigitalValue;
+	    #if ADC_ADJUST_RESULT == LEFT_ADJUST
+	    DigitalValue = ADCH;
+	    #elif ADC_ADJUST_RESULT == RIGHT_ADJUST
+	    Local_u8DigitalValue = ADCL;
+	    #endif
+
+	    return DigitalValue;
 	}
-	return ADCH;
 
-
-}
-u8 ADC_GetADCH(void){
-	return ADCH;
-
-}
-u8 ADC_GetADCL(void){
-	return ADCL;
-
-}
 
