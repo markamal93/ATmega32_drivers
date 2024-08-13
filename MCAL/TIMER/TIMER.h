@@ -9,6 +9,9 @@
 #define MCAL_TIMER_TIMER_H_
 
 #include "TIMER_config.h"
+#include "ATMEGA32_REG.h"
+#include "MACROS.h"
+#include "STD_TYPES.h"
 
 /************************* TIMER0 *****************************/
 
