@@ -19,8 +19,8 @@ static void (*TIMER2_pvOCNotificationFunction)(void) = NULL;
 
 void TIMER0_Init(void) {
 #if TIMER0_MODE_SEL == TIMER0_NORMAL_MODE
-	CLEAR_BIT(TCCR0 , TCCR0_WGM00);
-	CLEAR_BIT(TCCR0 , TCCR0_WGM01);
+	CLEAR_BIT(TCCR0, TCCR0_WGM00);
+	CLEAR_BIT(TCCR0, TCCR0_WGM01);
 #elif TIMER0_MODE_SEL == TIMER0_CTC_MODE
 	CLEAR_BIT(TCCR0 , TCCR0_WGM00);
 	SET_BIT(TCCR0 , TCCR0_WGM01);
@@ -54,9 +54,9 @@ void TIMER0_Init(void) {
 	CLEAR_BIT(TCCR0 , TCCR0_CS01);
 	CLEAR_BIT(TCCR0 , TCCR0_CS02);
 #elif 	TIMER0_CLK_SEL   ==    DIV_FACTOR_8
-	CLEAR_BIT(TCCR0 , TCCR0_CS00);
-	SET_BIT(TCCR0 , TCCR0_CS01);
-	CLEAR_BIT(TCCR0 , TCCR0_CS02);
+	CLEAR_BIT(TCCR0, TCCR0_CS00);
+	SET_BIT(TCCR0, TCCR0_CS01);
+	CLEAR_BIT(TCCR0, TCCR0_CS02);
 #elif 	TIMER0_CLK_SEL    ==   DIV_FACTOR_64
 	SET_BIT(TCCR0 , TCCR0_CS00);
 	SET_BIT(TCCR0 , TCCR0_CS01);
@@ -79,30 +79,73 @@ void TIMER0_Init(void) {
 	SET_BIT(TCCR0 , TCCR0_CS02);
 #endif
 
-
-
-
-
-
 }
 
-void TIMER0_DisableTimer0(void){
-	CLEAR_BIT(TCCR0 , TCCR0_COM00);
-	CLEAR_BIT(TCCR0 , TCCR0_COM01);
+void TIMER0_DisableTimer0(void) {
+	CLEAR_BIT(TCCR0, TCCR0_COM00);
+	CLEAR_BIT(TCCR0, TCCR0_COM01);
 }
 void TIMER0_EnableTimer0(void);
 
-void TIMER0_SetPreloadValue(u8 Value);
-void TIMER0_SetOCMatchValue(u8 Value);
+void TIMER0_SetPreloadValue(u8 Value){
+	TCNT0 = Value;
+}
+void TIMER0_SetOCMatchValue(u8 Value){
+	OCR0 = Value;
+}
 
 void TIMER0_SetOVFCallBack(void (*pvNotificationFunction)(void));
 void TIMER0_SetOCCallBack(void (*pvNotificationFunction)(void));
 
-void TIMER0_EnableInterrupt(u8 Mode);
-void TIMER0_DisableInterrupt(u8 Mode);
+void TIMER0_EnableInterrupt(u8 Mode){
+	if(Mode == TIMER0_OVF)
+	{
+		SET_BIT(TIMSK,TIMSK_TOIE0);
+	}
+	else if(Mode == TIMER0_COMP)
+	{
+		SET_BIT(TIMSK,TIMSK_OCIE0);
+	}
+}
+void TIMER0_DisableInterrupt(u8 Mode){
+	if(Mode == TIMER0_OVF)
+	{
+		CLEAR_BIT(TIMSK,TIMSK_TOIE0);
+	}
+	else if(Mode == TIMER0_COMP)
+	{
+		CLEAR_BIT(TIMSK,TIMSK_OCIE0);
+	}
+}
 
-void TIMER0_SetBusyWait_OVFMode(u32 Time);
-void TIMER0_SetBusyWait_OCMode(u32 Time);
+void TIMER0_SetBusyWait_OVFMode(u32 Time){
+
+		TIMER0_SetPreloadValue(6);
+		u32 Number_of_OVF = ((u32)Time * 1000UL) / 250UL;
+
+		u32 Counter = 0;
+
+		while(Counter < Number_of_OVF)
+		{
+			while(GET_BIT(TIFR , TIFR_TOV0) == 0);
+			SET_BIT(TIFR , TIFR_TOV0);
+			Counter++;
+			TIMER0_SetPreloadValue(6);
+		}
+}
+void TIMER0_SetBusyWait_OCMode(u32 Time){
+	TIMER0_SetOCMatchValue(250);
+	u32 Number_Of_OCF = ((u32)Time * 1000UL) / 250UL;
+
+	u32 Counter = 0;
+
+	while(Counter <= Number_Of_OCF)
+	{
+		while(GET_BIT(TIFR , TIFR_OCF0) == 0);
+		SET_BIT(TIFR , TIFR_OCF0);
+		Counter++;
+	}
+}
 
 void TIMER1_Init(void);
 
