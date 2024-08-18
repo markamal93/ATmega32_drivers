@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../APP/TIMER_EXP.c 
+../APP/UART_TEST.c 
 
 OBJS += \
-./APP/TIMER_EXP.o 
+./APP/UART_TEST.o 
 
 C_DEPS += \
-./APP/TIMER_EXP.d 
+./APP/UART_TEST.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

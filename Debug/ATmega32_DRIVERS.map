@@ -5,7 +5,7 @@ c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi
 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
                               c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5/crtatmega16.o (exit)
 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
-                              ./HAL/KEYPAD4x4/KEYPAD4x4.o (__do_copy_data)
+                              ./MCAL/UART/UART.o (__do_copy_data)
 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
                               ./MCAL/TIMER/TIMER.o (__do_clear_bss)
 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
@@ -72,7 +72,7 @@ LOAD ./MCAL/GPIO/GPIO.o
 LOAD ./MCAL/ADC/ADC.o
 LOAD ./HAL/LCD16x2/LCD16x2.o
 LOAD ./HAL/KEYPAD4x4/KEYPAD4x4.o
-LOAD ./APP/TIMER_EXP.o
+LOAD ./APP/UART_TEST.o
 START GROUP
 LOAD c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a
 LOAD c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a
@@ -177,7 +177,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000     0x3196
+.text           0x0000000000000000     0x32be
  *(.vectors)
  .vectors       0x0000000000000000       0x54 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5/crtatmega16.o
                 0x0000000000000000                __vector_default
@@ -261,7 +261,7 @@ END GROUP
  .text          0x0000000000000092        0x0 ./MCAL/ADC/ADC.o
  .text          0x0000000000000092        0x0 ./HAL/LCD16x2/LCD16x2.o
  .text          0x0000000000000092        0x0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
- .text          0x0000000000000092        0x0 ./APP/TIMER_EXP.o
+ .text          0x0000000000000092        0x0 ./APP/UART_TEST.o
  .text          0x0000000000000092        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text          0x0000000000000092        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text          0x0000000000000092        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
@@ -289,246 +289,261 @@ END GROUP
  .text          0x0000000000000092        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(strrev.o)
                 0x0000000000000092                . = ALIGN (0x2)
  *(.text.*)
- .text.UART_Init
-                0x0000000000000092       0x6a ./MCAL/UART/UART.o
-                0x0000000000000092                UART_Init
+ .text.UART_vidInit
+                0x0000000000000092       0xb2 ./MCAL/UART/UART.o
+                0x0000000000000092                UART_vidInit
+ .text.UART_vidSendByte
+                0x0000000000000144       0x3c ./MCAL/UART/UART.o
+                0x0000000000000144                UART_vidSendByte
+ .text.UART_u8ReceiveByte
+                0x0000000000000180       0x32 ./MCAL/UART/UART.o
+                0x0000000000000180                UART_u8ReceiveByte
+ .text.UART_u8GetReceivedByte
+                0x00000000000001b2       0x16 ./MCAL/UART/UART.o
+                0x00000000000001b2                UART_u8GetReceivedByte
+ .text.UART_vidSendString
+                0x00000000000001c8       0x3e ./MCAL/UART/UART.o
+                0x00000000000001c8                UART_vidSendString
+ .text.UART_vidSendLine
+                0x0000000000000206       0x18 ./MCAL/UART/UART.o
+                0x0000000000000206                UART_vidSendLine
  .text.TIMER0_Init
-                0x00000000000000fc       0x6a ./MCAL/TIMER/TIMER.o
-                0x00000000000000fc                TIMER0_Init
+                0x000000000000021e       0x6a ./MCAL/TIMER/TIMER.o
+                0x000000000000021e                TIMER0_Init
  .text.TIMER0_DisableTimer0
-                0x0000000000000166       0x34 ./MCAL/TIMER/TIMER.o
-                0x0000000000000166                TIMER0_DisableTimer0
+                0x0000000000000288       0x34 ./MCAL/TIMER/TIMER.o
+                0x0000000000000288                TIMER0_DisableTimer0
  .text.TIMER0_SetPreloadValue
-                0x000000000000019a       0x20 ./MCAL/TIMER/TIMER.o
-                0x000000000000019a                TIMER0_SetPreloadValue
+                0x00000000000002bc       0x20 ./MCAL/TIMER/TIMER.o
+                0x00000000000002bc                TIMER0_SetPreloadValue
  .text.TIMER0_SetOCMatchValue
-                0x00000000000001ba       0x20 ./MCAL/TIMER/TIMER.o
-                0x00000000000001ba                TIMER0_SetOCMatchValue
+                0x00000000000002dc       0x20 ./MCAL/TIMER/TIMER.o
+                0x00000000000002dc                TIMER0_SetOCMatchValue
  .text.TIMER0_EnableInterrupt
-                0x00000000000001da       0x48 ./MCAL/TIMER/TIMER.o
-                0x00000000000001da                TIMER0_EnableInterrupt
+                0x00000000000002fc       0x48 ./MCAL/TIMER/TIMER.o
+                0x00000000000002fc                TIMER0_EnableInterrupt
  .text.TIMER0_DisableInterrupt
-                0x0000000000000222       0x48 ./MCAL/TIMER/TIMER.o
-                0x0000000000000222                TIMER0_DisableInterrupt
+                0x0000000000000344       0x48 ./MCAL/TIMER/TIMER.o
+                0x0000000000000344                TIMER0_DisableInterrupt
  .text.TIMER0_SetBusyWait_OVFMode
-                0x000000000000026a       0xc8 ./MCAL/TIMER/TIMER.o
-                0x000000000000026a                TIMER0_SetBusyWait_OVFMode
+                0x000000000000038c       0xc8 ./MCAL/TIMER/TIMER.o
+                0x000000000000038c                TIMER0_SetBusyWait_OVFMode
  .text.TIMER0_SetBusyWait_OCMode
-                0x0000000000000332       0xc6 ./MCAL/TIMER/TIMER.o
-                0x0000000000000332                TIMER0_SetBusyWait_OCMode
+                0x0000000000000454       0xc6 ./MCAL/TIMER/TIMER.o
+                0x0000000000000454                TIMER0_SetBusyWait_OCMode
  .text.GPIO_SetPortDirection
-                0x00000000000003f8       0x78 ./MCAL/GPIO/GPIO.o
-                0x00000000000003f8                GPIO_SetPortDirection
+                0x000000000000051a       0x78 ./MCAL/GPIO/GPIO.o
+                0x000000000000051a                GPIO_SetPortDirection
  .text.GPIO_SetPortValue
-                0x0000000000000470       0x78 ./MCAL/GPIO/GPIO.o
-                0x0000000000000470                GPIO_SetPortValue
+                0x0000000000000592       0x78 ./MCAL/GPIO/GPIO.o
+                0x0000000000000592                GPIO_SetPortValue
  .text.GPIO_GetPortValue
-                0x00000000000004e8       0x78 ./MCAL/GPIO/GPIO.o
-                0x00000000000004e8                GPIO_GetPortValue
+                0x000000000000060a       0x78 ./MCAL/GPIO/GPIO.o
+                0x000000000000060a                GPIO_GetPortValue
  .text.GPIO_SetPinDirection
-                0x0000000000000560      0x1d6 ./MCAL/GPIO/GPIO.o
-                0x0000000000000560                GPIO_SetPinDirection
+                0x0000000000000682      0x1d6 ./MCAL/GPIO/GPIO.o
+                0x0000000000000682                GPIO_SetPinDirection
  .text.GPIO_SetPinValue
-                0x0000000000000736      0x1d6 ./MCAL/GPIO/GPIO.o
-                0x0000000000000736                GPIO_SetPinValue
+                0x0000000000000858      0x1d6 ./MCAL/GPIO/GPIO.o
+                0x0000000000000858                GPIO_SetPinValue
  .text.GPIO_GetPinValue
-                0x000000000000090c       0xe4 ./MCAL/GPIO/GPIO.o
-                0x000000000000090c                GPIO_GetPinValue
+                0x0000000000000a2e       0xe4 ./MCAL/GPIO/GPIO.o
+                0x0000000000000a2e                GPIO_GetPinValue
  .text.GPIO_TogglePin
-                0x00000000000009f0       0xfe ./MCAL/GPIO/GPIO.o
-                0x00000000000009f0                GPIO_TogglePin
+                0x0000000000000b12       0xfe ./MCAL/GPIO/GPIO.o
+                0x0000000000000b12                GPIO_TogglePin
  .text.GPIO_SetPullUpOnPin
-                0x0000000000000aee       0x2e ./MCAL/GPIO/GPIO.o
-                0x0000000000000aee                GPIO_SetPullUpOnPin
+                0x0000000000000c10       0x2e ./MCAL/GPIO/GPIO.o
+                0x0000000000000c10                GPIO_SetPullUpOnPin
  .text.ADC_Init
-                0x0000000000000b1c       0x8e ./MCAL/ADC/ADC.o
-                0x0000000000000b1c                ADC_Init
+                0x0000000000000c3e       0x8e ./MCAL/ADC/ADC.o
+                0x0000000000000c3e                ADC_Init
  .text.ADC_InterruptControl
-                0x0000000000000baa       0x50 ./MCAL/ADC/ADC.o
-                0x0000000000000baa                ADC_InterruptControl
+                0x0000000000000ccc       0x50 ./MCAL/ADC/ADC.o
+                0x0000000000000ccc                ADC_InterruptControl
  .text.ADC_StartConversionSynchronous
-                0x0000000000000bfa       0x86 ./MCAL/ADC/ADC.o
-                0x0000000000000bfa                ADC_StartConversionSynchronous
+                0x0000000000000d1c       0x86 ./MCAL/ADC/ADC.o
+                0x0000000000000d1c                ADC_StartConversionSynchronous
  .text.LCD_Init
-                0x0000000000000c80      0x2e0 ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000000c80                LCD_Init
+                0x0000000000000da2      0x2e0 ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000000da2                LCD_Init
  .text.LCD_SendCommand
-                0x0000000000000f60      0xda0 ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000000f60                LCD_SendCommand
+                0x0000000000001082      0xda0 ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000001082                LCD_SendCommand
  .text.LCD_SendChar
-                0x0000000000001d00      0xda0 ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000001d00                LCD_SendChar
+                0x0000000000001e22      0xda0 ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000001e22                LCD_SendChar
  .text.LCD_SendString
-                0x0000000000002aa0       0x5a ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000002aa0                LCD_SendString
+                0x0000000000002bc2       0x5a ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000002bc2                LCD_SendString
  .text.LCD_GotoXy
-                0x0000000000002afa       0x76 ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000002afa                LCD_GotoXy
+                0x0000000000002c1c       0x76 ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000002c1c                LCD_GotoXy
  .text.LCD_SendNumber
-                0x0000000000002b70       0x48 ./HAL/LCD16x2/LCD16x2.o
-                0x0000000000002b70                LCD_SendNumber
+                0x0000000000002c92       0x48 ./HAL/LCD16x2/LCD16x2.o
+                0x0000000000002c92                LCD_SendNumber
  .text.KEYPAD_Init
-                0x0000000000002bb8       0xb0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
-                0x0000000000002bb8                KEYPAD_Init
+                0x0000000000002cda       0xb0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
+                0x0000000000002cda                KEYPAD_Init
  .text.KEYPAD_GetKey
-                0x0000000000002c68       0xda ./HAL/KEYPAD4x4/KEYPAD4x4.o
-                0x0000000000002c68                KEYPAD_GetKey
- .text.main     0x0000000000002d42       0x3e ./APP/TIMER_EXP.o
-                0x0000000000002d42                main
+                0x0000000000002d8a       0xda ./HAL/KEYPAD4x4/KEYPAD4x4.o
+                0x0000000000002d8a                KEYPAD_GetKey
+ .text.main     0x0000000000002e64       0x44 ./APP/UART_TEST.o
+                0x0000000000002e64                main
  .text.libgcc.mul
-                0x0000000000002d80        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002ea8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.div
-                0x0000000000002d80       0x44 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x0000000000002d80                __udivmodsi4
- .text.libgcc   0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002ea8       0x44 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002ea8                __udivmodsi4
+ .text.libgcc   0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.prologue
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.builtins
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.fmul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.fixed
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .text.libgcc.mul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x0000000000002dc4        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000000000002eec        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.mul
-                0x0000000000002dc4       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
-                0x0000000000002dc4                __muluhisi3
+                0x0000000000002eec       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002eec                __muluhisi3
  .text.libgcc.div
-                0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
- .text.libgcc   0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+ .text.libgcc   0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
  .text.libgcc.prologue
-                0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
  .text.libgcc.builtins
-                0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
  .text.libgcc.fmul
-                0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
  .text.libgcc.fixed
-                0x0000000000002dda        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+                0x0000000000002f02        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
  .text.libgcc.mul
-                0x0000000000002dda       0x1e c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
-                0x0000000000002dda                __umulhisi3
+                0x0000000000002f02       0x1e c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f02                __umulhisi3
  .text.libgcc.div
-                0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
- .text.libgcc   0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc.prologue
-                0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc.builtins
-                0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc.fmul
-                0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
  .text.libgcc.fixed
-                0x0000000000002df8        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000000000002f20        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
  .text.avr-libc.fplib
-                0x0000000000002df8        0xa c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                0x0000000000002df8                __nesf2
-                0x0000000000002df8                __eqsf2
-                0x0000000000002df8                __cmpsf2
-                0x0000000000002df8                __ltsf2
-                0x0000000000002df8                __lesf2
+                0x0000000000002f20        0xa c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                0x0000000000002f20                __nesf2
+                0x0000000000002f20                __eqsf2
+                0x0000000000002f20                __cmpsf2
+                0x0000000000002f20                __ltsf2
+                0x0000000000002f20                __lesf2
  .text.avr-libc.fplib
-                0x0000000000002e02        0x8 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
-                0x0000000000002e02                __divsf3
+                0x0000000000002f2a        0x8 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
+                0x0000000000002f2a                __divsf3
  .text.avr-libc.fplib
-                0x0000000000002e0a       0xdc c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
-                0x0000000000002e2a                __divsf3x
-                0x0000000000002e30                __divsf3_pse
+                0x0000000000002f32       0xdc c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+                0x0000000000002f52                __divsf3x
+                0x0000000000002f58                __divsf3_pse
  .text.avr-libc.fplib
-                0x0000000000002ee6       0x5e c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                0x0000000000002ee6                __fixunssfsi
+                0x000000000000300e       0x5e c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x000000000000300e                __fixunssfsi
  .text.avr-libc.fplib
-                0x0000000000002f44       0x48 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
-                0x0000000000002f44                __fp_cmp
+                0x000000000000306c       0x48 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                0x000000000000306c                __fp_cmp
  .text.avr-libc.fplib
-                0x0000000000002f8c        0xc c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
-                0x0000000000002f8c                __fp_inf
+                0x00000000000030b4        0xc c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x00000000000030b4                __fp_inf
  .text.avr-libc.fplib
-                0x0000000000002f98        0x6 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
-                0x0000000000002f98                __fp_nan
+                0x00000000000030c0        0x6 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x00000000000030c0                __fp_nan
  .text.avr-libc.fplib
-                0x0000000000002f9e        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
-                0x0000000000002f9e                __fp_pscA
+                0x00000000000030c6        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00000000000030c6                __fp_pscA
  .text.avr-libc.fplib
-                0x0000000000002fac        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
-                0x0000000000002fac                __fp_pscB
+                0x00000000000030d4        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x00000000000030d4                __fp_pscB
  .text.avr-libc.fplib
-                0x0000000000002fba       0x22 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
-                0x0000000000002fba                __fp_round
+                0x00000000000030e2       0x22 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x00000000000030e2                __fp_round
  .text.avr-libc.fplib
-                0x0000000000002fdc       0x44 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
-                0x0000000000002fdc                __fp_split3
-                0x0000000000002fec                __fp_splitA
+                0x0000000000003104       0x44 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x0000000000003104                __fp_split3
+                0x0000000000003114                __fp_splitA
  .text.avr-libc.fplib
-                0x0000000000003020        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
-                0x0000000000003020                __fp_zero
-                0x0000000000003022                __fp_szero
+                0x0000000000003148        0xe c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x0000000000003148                __fp_zero
+                0x000000000000314a                __fp_szero
  .text.avr-libc.fplib
-                0x000000000000302e        0xa c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
-                0x000000000000302e                __gesf2
-                0x000000000000302e                __gtsf2
+                0x0000000000003156        0xa c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
+                0x0000000000003156                __gesf2
+                0x0000000000003156                __gtsf2
  .text.avr-libc.fplib
-                0x0000000000003038        0x8 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                0x0000000000003038                __mulsf3
+                0x0000000000003160        0x8 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                0x0000000000003160                __mulsf3
  .text.avr-libc.fplib
-                0x0000000000003040       0xd2 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
-                0x000000000000305e                __mulsf3x
-                0x0000000000003064                __mulsf3_pse
+                0x0000000000003168       0xd2 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                0x0000000000003186                __mulsf3x
+                0x000000000000318c                __mulsf3_pse
  .text.avr-libc
-                0x0000000000003112       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa.o)
-                0x0000000000003112                __itoa
-                0x0000000000003112                itoa
+                0x000000000000323a       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x000000000000323a                __itoa
+                0x000000000000323a                itoa
  .text.avr-libc
-                0x0000000000003128       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x0000000000003128                __itoa_ncheck
+                0x0000000000003250       0x16 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x0000000000003250                __itoa_ncheck
  .text.avr-libc
-                0x000000000000313e       0x34 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x000000000000313e                __utoa_ncheck
-                0x0000000000003140                __utoa_common
+                0x0000000000003266       0x34 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x0000000000003266                __utoa_ncheck
+                0x0000000000003268                __utoa_common
  .text.avr-libc
-                0x0000000000003172       0x20 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x0000000000003172                strrev
-                0x0000000000003192                . = ALIGN (0x2)
+                0x000000000000329a       0x20 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000000000000329a                strrev
+                0x00000000000032ba                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000003192        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
-                0x0000000000003192                _exit
-                0x0000000000003192                exit
+ .fini9         0x00000000000032ba        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+                0x00000000000032ba                _exit
+                0x00000000000032ba                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -547,17 +562,17 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000003192        0x4 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000000000032ba        0x4 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
  *(.hightext)
  *(.hightext*)
  *(.progmemx.*)
-                0x0000000000003196                . = ALIGN (0x2)
+                0x00000000000032be                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
-                0x0000000000003196                _etext = .
+                0x00000000000032be                _etext = .
 
-.data           0x0000000000800060       0x18 load address 0x0000000000003196
+.data           0x0000000000800060       0x24 load address 0x00000000000032be
                 0x0000000000800060                PROVIDE (__data_start = .)
  *(.data)
  .data          0x0000000000800060        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5/crtatmega16.o
@@ -567,7 +582,7 @@ END GROUP
  .data          0x0000000000800060        0x0 ./MCAL/ADC/ADC.o
  .data          0x0000000000800060        0x0 ./HAL/LCD16x2/LCD16x2.o
  .data          0x0000000000800060        0x0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
- .data          0x0000000000800060        0x0 ./APP/TIMER_EXP.o
+ .data          0x0000000000800060        0x0 ./APP/UART_TEST.o
  .data          0x0000000000800060        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
  .data          0x0000000000800060        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
  .data          0x0000000000800060        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
@@ -602,75 +617,77 @@ END GROUP
                 0x0000000000800068       0x10 ./HAL/KEYPAD4x4/KEYPAD4x4.o
  *(.gnu.linkonce.d*)
  *(.rodata)
+ .rodata        0x0000000000800078        0xb ./MCAL/UART/UART.o
  *(.rodata*)
  *(.gnu.linkonce.r*)
-                0x0000000000800078                . = ALIGN (0x2)
-                0x0000000000800078                _edata = .
-                0x0000000000800078                PROVIDE (__data_end = .)
+                0x0000000000800084                . = ALIGN (0x2)
+ *fill*         0x0000000000800083        0x1 
+                0x0000000000800084                _edata = .
+                0x0000000000800084                PROVIDE (__data_end = .)
 
-.bss            0x0000000000800078       0x10
-                0x0000000000800078                PROVIDE (__bss_start = .)
+.bss            0x0000000000800084       0x10
+                0x0000000000800084                PROVIDE (__bss_start = .)
  *(.bss)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5/crtatmega16.o
- .bss           0x0000000000800078        0x0 ./MCAL/UART/UART.o
- .bss           0x0000000000800078        0x0 ./MCAL/TIMER/TIMER.o
- .bss           0x0000000000800078        0x0 ./MCAL/GPIO/GPIO.o
- .bss           0x0000000000800078        0x0 ./MCAL/ADC/ADC.o
- .bss           0x0000000000800078        0x0 ./HAL/LCD16x2/LCD16x2.o
- .bss           0x0000000000800078        0x0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
- .bss           0x0000000000800078        0x0 ./APP/TIMER_EXP.o
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
- .bss           0x0000000000800078        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5/crtatmega16.o
+ .bss           0x0000000000800084        0x0 ./MCAL/UART/UART.o
+ .bss           0x0000000000800084        0x0 ./MCAL/TIMER/TIMER.o
+ .bss           0x0000000000800084        0x0 ./MCAL/GPIO/GPIO.o
+ .bss           0x0000000000800084        0x0 ./MCAL/ADC/ADC.o
+ .bss           0x0000000000800084        0x0 ./HAL/LCD16x2/LCD16x2.o
+ .bss           0x0000000000800084        0x0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
+ .bss           0x0000000000800084        0x0 ./APP/UART_TEST.o
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_exit.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_muluhisi3.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/avr5\libgcc.a(_umulhisi3.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(divsf3x.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(gesf2.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+ .bss           0x0000000000800084        0x0 c:/avr-gcc-12.1.0-x64-windows/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr5\libc.a(strrev.o)
  *(.bss*)
  .bss.TIMER0_pvOVFNotificationFunction
-                0x0000000000800078        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER0_pvOCNotificationFunction
-                0x000000000080007a        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER1_pvOVFNotificationFunction
-                0x000000000080007c        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER1_pvOC1ANotificationFunction
-                0x000000000080007e        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER1_pvOC1BNotificationFunction
-                0x0000000000800080        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER1_pvICUNotificationFunction
-                0x0000000000800082        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER2_pvOVFNotificationFunction
                 0x0000000000800084        0x2 ./MCAL/TIMER/TIMER.o
- .bss.TIMER2_pvOCNotificationFunction
+ .bss.TIMER0_pvOCNotificationFunction
                 0x0000000000800086        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER1_pvOVFNotificationFunction
+                0x0000000000800088        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER1_pvOC1ANotificationFunction
+                0x000000000080008a        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER1_pvOC1BNotificationFunction
+                0x000000000080008c        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER1_pvICUNotificationFunction
+                0x000000000080008e        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER2_pvOVFNotificationFunction
+                0x0000000000800090        0x2 ./MCAL/TIMER/TIMER.o
+ .bss.TIMER2_pvOCNotificationFunction
+                0x0000000000800092        0x2 ./MCAL/TIMER/TIMER.o
  *(COMMON)
-                0x0000000000800088                PROVIDE (__bss_end = .)
-                0x0000000000003196                __data_load_start = LOADADDR (.data)
-                0x00000000000031ae                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000000000800094                PROVIDE (__bss_end = .)
+                0x00000000000032be                __data_load_start = LOADADDR (.data)
+                0x00000000000032e2                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0000000000800088        0x0
+.noinit         0x0000000000800094        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit .noinit.* .gnu.linkonce.n.*)
                 [!provide]                        PROVIDE (__noinit_end = .)
-                0x0000000000800088                _end = .
+                0x0000000000800094                _end = .
                 [!provide]                        PROVIDE (__heap_start = .)
 
 .eeprom         0x0000000000810000        0x0
@@ -689,25 +706,25 @@ END GROUP
 .signature
  *(.signature*)
 
-.stab           0x0000000000000000     0x26f4
+.stab           0x0000000000000000     0x28ec
  *(.stab)
- .stab          0x0000000000000000       0xb4 ./MCAL/UART/UART.o
- .stab          0x00000000000000b4      0x4c8 ./MCAL/TIMER/TIMER.o
+ .stab          0x0000000000000000      0x288 ./MCAL/UART/UART.o
+ .stab          0x0000000000000288      0x4c8 ./MCAL/TIMER/TIMER.o
                                         0x4d4 (size before relaxing)
- .stab          0x000000000000057c      0x7d4 ./MCAL/GPIO/GPIO.o
+ .stab          0x0000000000000750      0x7d4 ./MCAL/GPIO/GPIO.o
                                         0x7e0 (size before relaxing)
- .stab          0x0000000000000d50      0x270 ./MCAL/ADC/ADC.o
+ .stab          0x0000000000000f24      0x270 ./MCAL/ADC/ADC.o
                                         0x27c (size before relaxing)
- .stab          0x0000000000000fc0     0x13c8 ./HAL/LCD16x2/LCD16x2.o
+ .stab          0x0000000000001194     0x13c8 ./HAL/LCD16x2/LCD16x2.o
                                        0x13d4 (size before relaxing)
- .stab          0x0000000000002388      0x2d0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
+ .stab          0x000000000000255c      0x2d0 ./HAL/KEYPAD4x4/KEYPAD4x4.o
                                         0x2dc (size before relaxing)
- .stab          0x0000000000002658       0x9c ./APP/TIMER_EXP.o
-                                         0xa8 (size before relaxing)
+ .stab          0x000000000000282c       0xc0 ./APP/UART_TEST.o
+                                         0xcc (size before relaxing)
 
-.stabstr        0x0000000000000000      0x96f
+.stabstr        0x0000000000000000      0xa20
  *(.stabstr)
- .stabstr       0x0000000000000000      0x96f ./MCAL/UART/UART.o
+ .stabstr       0x0000000000000000      0xa20 ./MCAL/UART/UART.o
 
 .stab.excl
  *(.stab.excl)
@@ -730,7 +747,7 @@ END GROUP
  .comment       0x0000000000000012       0x13 ./MCAL/ADC/ADC.o
  .comment       0x0000000000000012       0x13 ./HAL/LCD16x2/LCD16x2.o
  .comment       0x0000000000000012       0x13 ./HAL/KEYPAD4x4/KEYPAD4x4.o
- .comment       0x0000000000000012       0x13 ./APP/TIMER_EXP.o
+ .comment       0x0000000000000012       0x13 ./APP/UART_TEST.o
 
 .note.gnu.avr.deviceinfo
                 0x0000000000000000       0x3c
